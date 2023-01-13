@@ -21,7 +21,8 @@ Currently, we provide pre-processing steps including:
 ## Usage
 1. Put your own data files in Data folder 
 2. Specify parameters like max_len... 
-3. Execute "DataProcessor.py"
+3. Execute command like:
+python DataProcessor.py --data_file "Data/..." --save_file_name "Data_clean/..."
 4. You can add your own preprocessing steps into this project
 
 ## Notes

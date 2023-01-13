@@ -8,6 +8,7 @@ import os
 import re
 from typing import List
 import copy
+import argparse
 
 
 def load_json_data(data_file):
@@ -384,11 +385,12 @@ class DataProcessor:
                     return False
         return True
 
-    def preprocess(self, data_path, save_path, operators=['clean_web', 'split_entity', 'split_text']):
+    def preprocess(self, data_path, save_path, max_len, operators=['clean_web', 'split_entity', 'split_text']):
         """
         this function is to load corpus file and preprocess it and then save
         :param data_path: file path of data
         :param save_path: file path to save the processed data
+        :param max_len: maximum sentence length
         :param operators: a list of clean operators to be implemented
         :return:
         """
@@ -425,7 +427,7 @@ class DataProcessor:
 
         # split Long sentence
         if 'split_text' in operators:
-            new_samples = self.split_sentence_update_entities(new_samples)
+            new_samples = self.split_sentence_update_entities(new_samples, max_len)
 
         # check generated data
         if not self.check_generated_samples(new_samples):
@@ -434,19 +436,25 @@ class DataProcessor:
         # save processed data
         save_json_data(new_samples, save_path)
 
+#python DataProcessor.py --data_file "Data/CMeEE_train.json" --save_file_name "Data_clean/new.json"
+
 
 if __name__ == '__main__':
-    dp_train = DataProcessor(is_test=False)
-    dp_train.preprocess(data_path='Data/CMeEE_train.json', save_path='Data_clean/CMeEE_train_clean.json')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--is_test', action='store_true', default=False,
+                        help='indicate whether is a test file, without any entities.')
+    parser.add_argument('--max_sen_len', type=int, default=128,
+                        help='The maximum length of the input text, input text will be split if longer.')
+    parser.add_argument('--data_file', type=str, required=True,
+                        help='Data file to be processed.')
+    parser.add_argument('--save_file_name', type=str, required=True,
+                        help='The file name of the processed file.')
+    args = parser.parse_args()
 
-    dp_dev = DataProcessor(is_test=False)
-    dp_dev.preprocess(data_path='Data/CMeEE_dev.json', save_path='Data_clean/CMeEE_dev_clean.json')
-
-    dp_test = DataProcessor(is_test=True)
-    dp_test.preprocess(data_path='Data/CMeEE_test.json', save_path='Data_clean/CMeEE_test_clean.json')
-    # test_samples = load_json_data()
-    # test_res = dp_test.recover_test_entities(test_samples)
-    # save_json_data(test_res, 'result/CMeEE_test_done.json')
+    dp_train = DataProcessor(is_test=args.is_test)
+    dp_train.preprocess(data_path=args.data_file,
+                        save_path=args.save_file_name,
+                        max_len=args.max_sen_len)
 
 
 
