@@ -1,4 +1,4 @@
-# Data pre-processing in NER (Named Entity Recognition) task.
+# Data pre-processing in NER (Named Entity Recognition)
 
 ## Table of Contents
 
