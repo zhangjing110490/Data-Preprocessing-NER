@@ -1,4 +1,4 @@
-# Pre-process data files used in NER (Named Entity Recognition) task.
+# Data pre-processing in NER (Named Entity Recognition) task.
 
 ## Table of Contents
 
