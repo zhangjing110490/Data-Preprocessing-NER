@@ -14,7 +14,7 @@
 
 ## Functions
 Currently, we provide pre-processing steps including:
-1. Remove html websites, web marks 
+1. Remove URLs, HTML tags
 2. Split long entities 
 3. Split long text input 
 
