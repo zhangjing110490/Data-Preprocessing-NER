@@ -28,6 +28,7 @@ python DataProcessor.py --data_file "Data/..." --save_file_name "Data_clean/..."
 ## Notes
 1. This script is used only in NER task, to preprocess the train/dev/test data.
 2. The data files should be in json format, an example is as:
+```yaml
 [
   {
     "text": "（5）房室结消融和起搏器植入作为反复发作或难治性心房内折返性心动过速的替代疗法。",
@@ -76,4 +77,4 @@ python DataProcessor.py --data_file "Data/..." --save_file_name "Data_clean/..."
     ]
   }
   ]
-You need to convert the format firstly to follow the above examples.
+You need to convert the format of your data files firstly to be consistent with the above example.
